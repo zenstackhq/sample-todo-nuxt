@@ -5,6 +5,8 @@
     "scripts": {
         "build": "nuxt build",
         "dev": "nuxt dev",
+        "zenstack:gen": "zenstack generate",
+        "db:push": "prisma db push",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare"
