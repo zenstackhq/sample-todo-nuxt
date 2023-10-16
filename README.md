@@ -11,7 +11,7 @@
 
 # A Collaborative Todo Sample - ZenStack + Nuxt
 
-This project is a collaborative Todo app built with [Nuxt V3](https://nuxt.com), [@sidebase/nuxt-auth](https://sidebase.io/nuxt-auth/), and [ZenStack](https://zenstack.dev).
+This project is a collaborative Todo app built with [Nuxt V3](https://nuxt.com), [@sidebase/nuxt-auth](https://sidebase.io/nuxt-auth/), and [ZenStack](https://github.com/zenstackhq/zenstack).
 
 In this fictitious app, users can be invited to workspaces where they can collaborate on todos. Public todo lists are visible to all members in the workspace.
 
