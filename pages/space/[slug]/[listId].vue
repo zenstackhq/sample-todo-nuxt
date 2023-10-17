@@ -18,7 +18,9 @@ const { data: space } = useFindUniqueSpace({
 
 const { data: list, refetch } = useFindUniqueList({
     where: { id: route.params.listId as string },
-    include: { todos: { include: { owner: true } } },
+    include: {
+        todos: { include: { owner: true }, orderBy: { createdAt: 'desc' } },
+    },
 });
 
 const create = useCreateTodo();

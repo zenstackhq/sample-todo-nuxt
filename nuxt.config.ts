@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    devtools: { enabled: true },
     modules: ['@sidebase/nuxt-auth'],
     css: ['~/assets/css/main.css'],
     postcss: {
@@ -11,5 +10,10 @@ export default defineNuxtConfig({
     },
     auth: {
         globalAppMiddleware: true,
+    },
+    runtimeConfig: {
+        public: {
+            deploymentUrl: process.env.DEPLOYMENT_URL,
+        },
     },
 });
