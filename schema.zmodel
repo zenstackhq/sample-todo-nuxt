@@ -7,8 +7,8 @@
  */
 datasource db {
     provider = 'postgresql'
-    url = env('DATABASE_URL')
-    directUrl = env('DATABASE_DIRECT_URL')
+    url = env('DATABASE_PRISMA_URL')
+    directUrl = env('DATABASE_URL_NON_POOLING')
 }
 
 generator js {
