@@ -5,6 +5,7 @@
     "scripts": {
         "build": "zenstack generate && nuxt build",
         "dev": "nuxt dev",
+        "vercel-build": "zenstack generate && nuxt build && prisma migrate deploy",
         "zenstack:gen": "zenstack generate",
         "db:push": "prisma db push",
         "generate": "nuxt generate",
