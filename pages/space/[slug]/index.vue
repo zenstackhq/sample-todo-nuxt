@@ -3,6 +3,7 @@ import { useFindManyList, useFindUniqueSpace } from '~/lib/hooks';
 
 const route = useRoute();
 const { data: lists } = useFindManyList({
+    where: { space: { slug: route.params.slug as string } },
     include: { owner: true },
     orderBy: { createdAt: 'desc' },
 });
