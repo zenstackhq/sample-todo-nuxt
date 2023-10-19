@@ -16,4 +16,9 @@ export default defineNuxtConfig({
             deploymentUrl: process.env.DEPLOYMENT_URL,
         },
     },
+    alias: {
+        // https://github.com/prisma/prisma/issues/12504
+        '.prisma/client/index-browser':
+            './node_modules/.prisma/client/index-browser.js',
+    },
 });
