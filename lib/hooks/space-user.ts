@@ -1,15 +1,10 @@
 /* eslint-disable */
 import type { Prisma, SpaceUser } from '@prisma/client';
-import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/vue-query';
-import { getContext } from '@zenstackhq/tanstack-query/runtime/vue';
-import {
-    query,
-    infiniteQuery,
-    postMutation,
-    putMutation,
-    deleteMutation,
-} from '@zenstackhq/tanstack-query/runtime/vue';
+import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
+import { getHooksContext } from '@zenstackhq/tanstack-query/runtime/vue';
+import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime/vue';
 import type { PickEnumerable, CheckSelect } from '@zenstackhq/tanstack-query/runtime';
+import metadata from './__model_meta';
 
 export function useCreateSpaceUser(
     options?: Omit<
@@ -18,10 +13,12 @@ export function useCreateSpaceUser(
     >,
     invalidateQueries: boolean = true,
 ) {
-    const { endpoint, fetch } = getContext();
-    const _mutation = postMutation<Prisma.SpaceUserCreateArgs, SpaceUser, true>(
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation = useModelMutation<Prisma.SpaceUserCreateArgs, SpaceUser, true>(
         'SpaceUser',
+        'POST',
         `${endpoint}/spaceUser/create`,
+        metadata,
         options,
         fetch,
         invalidateQueries,
@@ -56,10 +53,12 @@ export function useCreateManySpaceUser(
     >,
     invalidateQueries: boolean = true,
 ) {
-    const { endpoint, fetch } = getContext();
-    const _mutation = postMutation<Prisma.SpaceUserCreateManyArgs, Prisma.BatchPayload, false>(
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation = useModelMutation<Prisma.SpaceUserCreateManyArgs, Prisma.BatchPayload, false>(
         'SpaceUser',
+        'POST',
         `${endpoint}/spaceUser/createMany`,
+        metadata,
         options,
         fetch,
         invalidateQueries,
@@ -87,46 +86,34 @@ export function useCreateManySpaceUser(
 
 export function useFindManySpaceUser<T extends Prisma.SpaceUserFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceUserFindManyArgs>,
-    options?: UseQueryOptions<Array<Prisma.SpaceUserGetPayload<T>>>,
+    options?: Omit<UseQueryOptions<Array<Prisma.SpaceUserGetPayload<T>>>, 'queryKey'>,
 ) {
-    const { endpoint, fetch } = getContext();
-    return query<Array<Prisma.SpaceUserGetPayload<T>>>(
-        'SpaceUser',
-        `${endpoint}/spaceUser/findMany`,
-        args,
-        options,
-        fetch,
-    );
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery('SpaceUser', `${endpoint}/spaceUser/findMany`, args, options, fetch);
 }
 
 export function useInfiniteFindManySpaceUser<T extends Prisma.SpaceUserFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceUserFindManyArgs>,
-    options?: UseInfiniteQueryOptions<Array<Prisma.SpaceUserGetPayload<T>>>,
+    options?: Omit<UseInfiniteQueryOptions<Array<Prisma.SpaceUserGetPayload<T>>>, 'queryKey'>,
 ) {
-    const { endpoint, fetch } = getContext();
-    return infiniteQuery<Array<Prisma.SpaceUserGetPayload<T>>>(
-        'SpaceUser',
-        `${endpoint}/spaceUser/findMany`,
-        args,
-        options,
-        fetch,
-    );
+    const { endpoint, fetch } = getHooksContext();
+    return useInfiniteModelQuery('SpaceUser', `${endpoint}/spaceUser/findMany`, args, options, fetch);
 }
 
 export function useFindUniqueSpaceUser<T extends Prisma.SpaceUserFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.SpaceUserFindUniqueArgs>,
-    options?: UseQueryOptions<Prisma.SpaceUserGetPayload<T>>,
+    options?: Omit<UseQueryOptions<Prisma.SpaceUserGetPayload<T>>, 'queryKey'>,
 ) {
-    const { endpoint, fetch } = getContext();
-    return query<Prisma.SpaceUserGetPayload<T>>('SpaceUser', `${endpoint}/spaceUser/findUnique`, args, options, fetch);
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery('SpaceUser', `${endpoint}/spaceUser/findUnique`, args, options, fetch);
 }
 
 export function useFindFirstSpaceUser<T extends Prisma.SpaceUserFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceUserFindFirstArgs>,
-    options?: UseQueryOptions<Prisma.SpaceUserGetPayload<T>>,
+    options?: Omit<UseQueryOptions<Prisma.SpaceUserGetPayload<T>>, 'queryKey'>,
 ) {
-    const { endpoint, fetch } = getContext();
-    return query<Prisma.SpaceUserGetPayload<T>>('SpaceUser', `${endpoint}/spaceUser/findFirst`, args, options, fetch);
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery('SpaceUser', `${endpoint}/spaceUser/findFirst`, args, options, fetch);
 }
 
 export function useUpdateSpaceUser(
@@ -136,10 +123,12 @@ export function useUpdateSpaceUser(
     >,
     invalidateQueries: boolean = true,
 ) {
-    const { endpoint, fetch } = getContext();
-    const _mutation = putMutation<Prisma.SpaceUserUpdateArgs, SpaceUser, true>(
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation = useModelMutation<Prisma.SpaceUserUpdateArgs, SpaceUser, true>(
         'SpaceUser',
+        'PUT',
         `${endpoint}/spaceUser/update`,
+        metadata,
         options,
         fetch,
         invalidateQueries,
@@ -174,10 +163,12 @@ export function useUpdateManySpaceUser(
     >,
     invalidateQueries: boolean = true,
 ) {
-    const { endpoint, fetch } = getContext();
-    const _mutation = putMutation<Prisma.SpaceUserUpdateManyArgs, Prisma.BatchPayload, false>(
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation = useModelMutation<Prisma.SpaceUserUpdateManyArgs, Prisma.BatchPayload, false>(
         'SpaceUser',
+        'PUT',
         `${endpoint}/spaceUser/updateMany`,
+        metadata,
         options,
         fetch,
         invalidateQueries,
@@ -210,10 +201,12 @@ export function useUpsertSpaceUser(
     >,
     invalidateQueries: boolean = true,
 ) {
-    const { endpoint, fetch } = getContext();
-    const _mutation = postMutation<Prisma.SpaceUserUpsertArgs, SpaceUser, true>(
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation = useModelMutation<Prisma.SpaceUserUpsertArgs, SpaceUser, true>(
         'SpaceUser',
+        'POST',
         `${endpoint}/spaceUser/upsert`,
+        metadata,
         options,
         fetch,
         invalidateQueries,
@@ -248,10 +241,12 @@ export function useDeleteSpaceUser(
     >,
     invalidateQueries: boolean = true,
 ) {
-    const { endpoint, fetch } = getContext();
-    const _mutation = deleteMutation<Prisma.SpaceUserDeleteArgs, SpaceUser, true>(
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation = useModelMutation<Prisma.SpaceUserDeleteArgs, SpaceUser, true>(
         'SpaceUser',
+        'DELETE',
         `${endpoint}/spaceUser/delete`,
+        metadata,
         options,
         fetch,
         invalidateQueries,
@@ -286,10 +281,12 @@ export function useDeleteManySpaceUser(
     >,
     invalidateQueries: boolean = true,
 ) {
-    const { endpoint, fetch } = getContext();
-    const _mutation = deleteMutation<Prisma.SpaceUserDeleteManyArgs, Prisma.BatchPayload, false>(
+    const { endpoint, fetch } = getHooksContext();
+    const _mutation = useModelMutation<Prisma.SpaceUserDeleteManyArgs, Prisma.BatchPayload, false>(
         'SpaceUser',
+        'DELETE',
         `${endpoint}/spaceUser/deleteMany`,
+        metadata,
         options,
         fetch,
         invalidateQueries,
@@ -317,16 +314,10 @@ export function useDeleteManySpaceUser(
 
 export function useAggregateSpaceUser<T extends Prisma.SpaceUserAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.SpaceUserAggregateArgs>,
-    options?: UseQueryOptions<Prisma.GetSpaceUserAggregateType<T>>,
+    options?: Omit<UseQueryOptions<Prisma.GetSpaceUserAggregateType<T>>, 'queryKey'>,
 ) {
-    const { endpoint, fetch } = getContext();
-    return query<Prisma.GetSpaceUserAggregateType<T>>(
-        'SpaceUser',
-        `${endpoint}/spaceUser/aggregate`,
-        args,
-        options,
-        fetch,
-    );
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery('SpaceUser', `${endpoint}/spaceUser/aggregate`, args, options, fetch);
 }
 
 export function useGroupBySpaceUser<
@@ -380,52 +371,40 @@ export function useGroupBySpaceUser<
           }[OrderFields],
 >(
     args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.SpaceUserGroupByArgs, OrderByArg> & InputErrors>,
-    options?: UseQueryOptions<
-        {} extends InputErrors
-            ? Array<
-                  PickEnumerable<Prisma.SpaceUserGroupByOutputType, T['by']> & {
-                      [P in keyof T & keyof Prisma.SpaceUserGroupByOutputType]: P extends '_count'
-                          ? T[P] extends boolean
-                              ? number
-                              : Prisma.GetScalarType<T[P], Prisma.SpaceUserGroupByOutputType[P]>
-                          : Prisma.GetScalarType<T[P], Prisma.SpaceUserGroupByOutputType[P]>;
-                  }
-              >
-            : InputErrors
+    options?: Omit<
+        UseQueryOptions<
+            {} extends InputErrors
+                ? Array<
+                      PickEnumerable<Prisma.SpaceUserGroupByOutputType, T['by']> & {
+                          [P in keyof T & keyof Prisma.SpaceUserGroupByOutputType]: P extends '_count'
+                              ? T[P] extends boolean
+                                  ? number
+                                  : Prisma.GetScalarType<T[P], Prisma.SpaceUserGroupByOutputType[P]>
+                              : Prisma.GetScalarType<T[P], Prisma.SpaceUserGroupByOutputType[P]>;
+                      }
+                  >
+                : InputErrors
+        >,
+        'queryKey'
     >,
 ) {
-    const { endpoint, fetch } = getContext();
-    return query<
-        {} extends InputErrors
-            ? Array<
-                  PickEnumerable<Prisma.SpaceUserGroupByOutputType, T['by']> & {
-                      [P in keyof T & keyof Prisma.SpaceUserGroupByOutputType]: P extends '_count'
-                          ? T[P] extends boolean
-                              ? number
-                              : Prisma.GetScalarType<T[P], Prisma.SpaceUserGroupByOutputType[P]>
-                          : Prisma.GetScalarType<T[P], Prisma.SpaceUserGroupByOutputType[P]>;
-                  }
-              >
-            : InputErrors
-    >('SpaceUser', `${endpoint}/spaceUser/groupBy`, args, options, fetch);
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery('SpaceUser', `${endpoint}/spaceUser/groupBy`, args, options, fetch);
 }
 
 export function useCountSpaceUser<T extends Prisma.SpaceUserCountArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceUserCountArgs>,
-    options?: UseQueryOptions<
-        T extends { select: any }
-            ? T['select'] extends true
-                ? number
-                : Prisma.GetScalarType<T['select'], Prisma.SpaceUserCountAggregateOutputType>
-            : number
+    options?: Omit<
+        UseQueryOptions<
+            T extends { select: any }
+                ? T['select'] extends true
+                    ? number
+                    : Prisma.GetScalarType<T['select'], Prisma.SpaceUserCountAggregateOutputType>
+                : number
+        >,
+        'queryKey'
     >,
 ) {
-    const { endpoint, fetch } = getContext();
-    return query<
-        T extends { select: any }
-            ? T['select'] extends true
-                ? number
-                : Prisma.GetScalarType<T['select'], Prisma.SpaceUserCountAggregateOutputType>
-            : number
-    >('SpaceUser', `${endpoint}/spaceUser/count`, args, options, fetch);
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery('SpaceUser', `${endpoint}/spaceUser/count`, args, options, fetch);
 }
