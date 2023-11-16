@@ -9,6 +9,7 @@ import metadata from './__model_meta';
 export function useCreateAccount(
     options?: Omit<UseMutationOptions<Account | undefined, unknown, Prisma.AccountCreateArgs, unknown>, 'mutationFn'>,
     invalidateQueries: boolean = true,
+    optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
     const _mutation = useModelMutation<Prisma.AccountCreateArgs, Account, true>(
@@ -20,6 +21,7 @@ export function useCreateAccount(
         fetch,
         invalidateQueries,
         true,
+        optimisticUpdate,
     );
     const mutation = {
         ..._mutation,
@@ -49,6 +51,7 @@ export function useCreateManyAccount(
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
+    optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
     const _mutation = useModelMutation<Prisma.AccountCreateManyArgs, Prisma.BatchPayload, false>(
@@ -60,6 +63,7 @@ export function useCreateManyAccount(
         fetch,
         invalidateQueries,
         false,
+        optimisticUpdate,
     );
     const mutation = {
         ..._mutation,
@@ -83,10 +87,11 @@ export function useCreateManyAccount(
 
 export function useFindManyAccount<T extends Prisma.AccountFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.AccountFindManyArgs>,
-    options?: Omit<UseQueryOptions<Array<Prisma.AccountGetPayload<T>>>, 'queryKey'>,
+    options?: Omit<UseQueryOptions<Array<Prisma.AccountGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
+    optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Account', `${endpoint}/account/findMany`, args, options, fetch);
+    return useModelQuery('Account', `${endpoint}/account/findMany`, args, options, fetch, optimisticUpdate);
 }
 
 export function useInfiniteFindManyAccount<T extends Prisma.AccountFindManyArgs>(
@@ -99,23 +104,26 @@ export function useInfiniteFindManyAccount<T extends Prisma.AccountFindManyArgs>
 
 export function useFindUniqueAccount<T extends Prisma.AccountFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.AccountFindUniqueArgs>,
-    options?: Omit<UseQueryOptions<Prisma.AccountGetPayload<T>>, 'queryKey'>,
+    options?: Omit<UseQueryOptions<Prisma.AccountGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Account', `${endpoint}/account/findUnique`, args, options, fetch);
+    return useModelQuery('Account', `${endpoint}/account/findUnique`, args, options, fetch, optimisticUpdate);
 }
 
 export function useFindFirstAccount<T extends Prisma.AccountFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.AccountFindFirstArgs>,
-    options?: Omit<UseQueryOptions<Prisma.AccountGetPayload<T>>, 'queryKey'>,
+    options?: Omit<UseQueryOptions<Prisma.AccountGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
-    return useModelQuery('Account', `${endpoint}/account/findFirst`, args, options, fetch);
+    return useModelQuery('Account', `${endpoint}/account/findFirst`, args, options, fetch, optimisticUpdate);
 }
 
 export function useUpdateAccount(
     options?: Omit<UseMutationOptions<Account | undefined, unknown, Prisma.AccountUpdateArgs, unknown>, 'mutationFn'>,
     invalidateQueries: boolean = true,
+    optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
     const _mutation = useModelMutation<Prisma.AccountUpdateArgs, Account, true>(
@@ -127,6 +135,7 @@ export function useUpdateAccount(
         fetch,
         invalidateQueries,
         true,
+        optimisticUpdate,
     );
     const mutation = {
         ..._mutation,
@@ -156,6 +165,7 @@ export function useUpdateManyAccount(
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
+    optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
     const _mutation = useModelMutation<Prisma.AccountUpdateManyArgs, Prisma.BatchPayload, false>(
@@ -167,6 +177,7 @@ export function useUpdateManyAccount(
         fetch,
         invalidateQueries,
         false,
+        optimisticUpdate,
     );
     const mutation = {
         ..._mutation,
@@ -191,6 +202,7 @@ export function useUpdateManyAccount(
 export function useUpsertAccount(
     options?: Omit<UseMutationOptions<Account | undefined, unknown, Prisma.AccountUpsertArgs, unknown>, 'mutationFn'>,
     invalidateQueries: boolean = true,
+    optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
     const _mutation = useModelMutation<Prisma.AccountUpsertArgs, Account, true>(
@@ -202,6 +214,7 @@ export function useUpsertAccount(
         fetch,
         invalidateQueries,
         true,
+        optimisticUpdate,
     );
     const mutation = {
         ..._mutation,
@@ -228,6 +241,7 @@ export function useUpsertAccount(
 export function useDeleteAccount(
     options?: Omit<UseMutationOptions<Account | undefined, unknown, Prisma.AccountDeleteArgs, unknown>, 'mutationFn'>,
     invalidateQueries: boolean = true,
+    optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
     const _mutation = useModelMutation<Prisma.AccountDeleteArgs, Account, true>(
@@ -239,6 +253,7 @@ export function useDeleteAccount(
         fetch,
         invalidateQueries,
         true,
+        optimisticUpdate,
     );
     const mutation = {
         ..._mutation,
@@ -268,6 +283,7 @@ export function useDeleteManyAccount(
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
+    optimisticUpdate: boolean = false,
 ) {
     const { endpoint, fetch } = getHooksContext();
     const _mutation = useModelMutation<Prisma.AccountDeleteManyArgs, Prisma.BatchPayload, false>(
@@ -279,6 +295,7 @@ export function useDeleteManyAccount(
         fetch,
         invalidateQueries,
         false,
+        optimisticUpdate,
     );
     const mutation = {
         ..._mutation,

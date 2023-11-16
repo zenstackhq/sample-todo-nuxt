@@ -4,6 +4,7 @@ import {
     useFindUniqueList,
     useFindUniqueSpace,
     useCreateTodo,
+    useFindManyTodo,
 } from '~/lib/hooks';
 
 const title = ref('');
@@ -16,14 +17,17 @@ const { data: space } = useFindUniqueSpace({
     where: { slug: route.params.slug as string },
 });
 
-const { data: list, refetch } = useFindUniqueList({
+const { data: list } = useFindUniqueList({
     where: { id: route.params.listId as string },
-    include: {
-        todos: { include: { owner: true }, orderBy: { createdAt: 'desc' } },
-    },
 });
 
-const create = useCreateTodo();
+const { data: todos, refetch } = useFindManyTodo({
+    where: { listId: route.params.listId as string },
+    include: { owner: true },
+    orderBy: { createdAt: 'desc' },
+});
+
+const create = useCreateTodo(undefined, true, true);
 
 const onCreateTodo = async () => {
     if (!title.value) {
@@ -44,7 +48,7 @@ const onCreateTodo = async () => {
 <template>
     <div v-if="space && list">
         <div class="px-8 py-2">
-            <BreadCrumb :space="space" list="list" />
+            <BreadCrumb :space="space" :list="list" />
         </div>
         <div class="container w-full flex flex-col items-center pt-12 mx-auto">
             <h1 class="text-2xl font-semibold mb-4">{{ list.title }}</h1>
@@ -64,8 +68,9 @@ const onCreateTodo = async () => {
             </div>
             <ul class="flex flex-col space-y-4 py-8 w-11/12 md:w-auto">
                 <Todo
-                    v-for="todo in list.todos"
+                    v-for="todo in todos"
                     :value="todo"
+                    :optimistic="todo.$optimistic"
                     @change="refetch"
                 />
             </ul>

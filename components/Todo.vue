@@ -5,11 +5,14 @@ import Avatar from './Avatar';
 import TimeInfo from './TimeInfo';
 import { useUpdateTodo, useDeleteTodo } from '~/lib/hooks';
 
-const props = defineProps<{ value: Todo & { owner: User } }>();
+const props = defineProps<{
+    value: Todo & { owner: User };
+    optimistic?: boolean;
+}>();
 const emit = defineEmits(['change']);
 
-const update = useUpdateTodo();
-const del = useDeleteTodo();
+const update = useUpdateTodo(undefined, true, true);
+const del = useDeleteTodo(undefined, true, true);
 
 const onToggleComplete = async () => {
     await update.mutateAsync({
@@ -40,6 +43,10 @@ const onDelete = async () => {
                 }`"
             >
                 {{ value.title }}
+                <span
+                    v-if="optimistic"
+                    className="loading loading-spinner loading-sm ml-1"
+                ></span>
             </h3>
             <div class="flex">
                 <div class="flex">
