@@ -28,7 +28,7 @@ export function useCreateSpaceUser(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUserCreateArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUserCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserCreateArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -39,7 +39,7 @@ export function useCreateSpaceUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>>
                 | undefined;
@@ -70,7 +70,7 @@ export function useCreateManySpaceUser(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUserCreateManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUserCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserCreateManyArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -81,7 +81,7 @@ export function useCreateManySpaceUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
@@ -145,7 +145,7 @@ export function useUpdateSpaceUser(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUserUpdateArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUserUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserUpdateArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -156,7 +156,7 @@ export function useUpdateSpaceUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>>
                 | undefined;
@@ -187,7 +187,7 @@ export function useUpdateManySpaceUser(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUserUpdateManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUserUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserUpdateManyArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -198,7 +198,7 @@ export function useUpdateManySpaceUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
@@ -227,7 +227,7 @@ export function useUpsertSpaceUser(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUserUpsertArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUserUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserUpsertArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -238,7 +238,7 @@ export function useUpsertSpaceUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>>
                 | undefined;
@@ -269,7 +269,7 @@ export function useDeleteSpaceUser(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUserDeleteArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUserDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserDeleteArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -280,7 +280,7 @@ export function useDeleteSpaceUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>>
                 | undefined;
@@ -311,7 +311,7 @@ export function useDeleteManySpaceUser(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUserDeleteManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUserDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserDeleteManyArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -322,7 +322,7 @@ export function useDeleteManySpaceUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
@@ -352,40 +352,40 @@ export function useGroupBySpaceUser<
     InputErrors extends ByEmpty extends Prisma.True
         ? `Error: "by" must not be empty.`
         : HavingValid extends Prisma.False
-        ? {
-              [P in HavingFields]: P extends ByFields
-                  ? never
-                  : P extends string
-                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                  : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
-          }[HavingFields]
-        : 'take' extends Prisma.Keys<T>
-        ? 'orderBy' extends Prisma.Keys<T>
-            ? ByValid extends Prisma.True
+          ? {
+                [P in HavingFields]: P extends ByFields
+                    ? never
+                    : P extends string
+                      ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                      : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+            }[HavingFields]
+          : 'take' extends Prisma.Keys<T>
+            ? 'orderBy' extends Prisma.Keys<T>
+                ? ByValid extends Prisma.True
+                    ? {}
+                    : {
+                          [P in OrderFields]: P extends ByFields
+                              ? never
+                              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                      }[OrderFields]
+                : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : 'skip' extends Prisma.Keys<T>
+              ? 'orderBy' extends Prisma.Keys<T>
+                  ? ByValid extends Prisma.True
+                      ? {}
+                      : {
+                            [P in OrderFields]: P extends ByFields
+                                ? never
+                                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                        }[OrderFields]
+                  : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends Prisma.True
                 ? {}
                 : {
                       [P in OrderFields]: P extends ByFields
                           ? never
                           : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields]
-            : 'Error: If you provide "take", you also need to provide "orderBy"'
-        : 'skip' extends Prisma.Keys<T>
-        ? 'orderBy' extends Prisma.Keys<T>
-            ? ByValid extends Prisma.True
-                ? {}
-                : {
-                      [P in OrderFields]: P extends ByFields
-                          ? never
-                          : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields]
-            : 'Error: If you provide "skip", you also need to provide "orderBy"'
-        : ByValid extends Prisma.True
-        ? {}
-        : {
-              [P in OrderFields]: P extends ByFields
-                  ? never
-                  : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-          }[OrderFields],
+                  }[OrderFields],
 >(
     args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.SpaceUserGroupByArgs, OrderByArg> & InputErrors>,
     options?: Omit<

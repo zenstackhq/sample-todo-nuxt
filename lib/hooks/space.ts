@@ -25,7 +25,7 @@ export function useCreateSpace(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceCreateArgs>(
+        mutateAsync: async <T extends Prisma.SpaceCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceCreateArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -36,7 +36,7 @@ export function useCreateSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -64,7 +64,7 @@ export function useCreateManySpace(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceCreateManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceCreateManyArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -75,7 +75,7 @@ export function useCreateManySpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
@@ -136,7 +136,7 @@ export function useUpdateSpace(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUpdateArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUpdateArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -147,7 +147,7 @@ export function useUpdateSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -175,7 +175,7 @@ export function useUpdateManySpace(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUpdateManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUpdateManyArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -186,7 +186,7 @@ export function useUpdateManySpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
@@ -212,7 +212,7 @@ export function useUpsertSpace(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceUpsertArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUpsertArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -223,7 +223,7 @@ export function useUpsertSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -251,7 +251,7 @@ export function useDeleteSpace(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceDeleteArgs>(
+        mutateAsync: async <T extends Prisma.SpaceDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceDeleteArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -262,7 +262,7 @@ export function useDeleteSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -290,7 +290,7 @@ export function useDeleteManySpace(
     );
     const mutation = {
         ..._mutation,
-        async mutateAsync<T extends Prisma.SpaceDeleteManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceDeleteManyArgs>,
             options?: Omit<
                 UseMutationOptions<
@@ -301,7 +301,7 @@ export function useDeleteManySpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await _mutation.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     };
@@ -331,40 +331,40 @@ export function useGroupBySpace<
     InputErrors extends ByEmpty extends Prisma.True
         ? `Error: "by" must not be empty.`
         : HavingValid extends Prisma.False
-        ? {
-              [P in HavingFields]: P extends ByFields
-                  ? never
-                  : P extends string
-                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-                  : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
-          }[HavingFields]
-        : 'take' extends Prisma.Keys<T>
-        ? 'orderBy' extends Prisma.Keys<T>
-            ? ByValid extends Prisma.True
+          ? {
+                [P in HavingFields]: P extends ByFields
+                    ? never
+                    : P extends string
+                      ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                      : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+            }[HavingFields]
+          : 'take' extends Prisma.Keys<T>
+            ? 'orderBy' extends Prisma.Keys<T>
+                ? ByValid extends Prisma.True
+                    ? {}
+                    : {
+                          [P in OrderFields]: P extends ByFields
+                              ? never
+                              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                      }[OrderFields]
+                : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : 'skip' extends Prisma.Keys<T>
+              ? 'orderBy' extends Prisma.Keys<T>
+                  ? ByValid extends Prisma.True
+                      ? {}
+                      : {
+                            [P in OrderFields]: P extends ByFields
+                                ? never
+                                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                        }[OrderFields]
+                  : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends Prisma.True
                 ? {}
                 : {
                       [P in OrderFields]: P extends ByFields
                           ? never
                           : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields]
-            : 'Error: If you provide "take", you also need to provide "orderBy"'
-        : 'skip' extends Prisma.Keys<T>
-        ? 'orderBy' extends Prisma.Keys<T>
-            ? ByValid extends Prisma.True
-                ? {}
-                : {
-                      [P in OrderFields]: P extends ByFields
-                          ? never
-                          : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-                  }[OrderFields]
-            : 'Error: If you provide "skip", you also need to provide "orderBy"'
-        : ByValid extends Prisma.True
-        ? {}
-        : {
-              [P in OrderFields]: P extends ByFields
-                  ? never
-                  : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-          }[OrderFields],
+                  }[OrderFields],
 >(
     args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.SpaceGroupByArgs, OrderByArg> & InputErrors>,
     options?: Omit<
