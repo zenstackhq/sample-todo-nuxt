@@ -73,7 +73,7 @@ const onDelete = async () => {
                 :updatedAt="value.updatedAt"
                 :completedAt="value.completedAt"
             />
-            <Avatar :user="value.owner" :size="18" />
+            <Avatar v-if="value.owner"  :user="value.owner" :size="18" />
         </div>
     </div>
 </template>
