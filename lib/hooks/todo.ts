@@ -2,13 +2,18 @@
 import type { Prisma, Todo } from '@prisma/client';
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime/vue';
+import type { MaybeRefOrGetter, ComputedRef } from 'vue';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime/vue';
 import type { PickEnumerable, CheckSelect, QueryError } from '@zenstackhq/tanstack-query/runtime';
 import metadata from './__model_meta';
 type DefaultError = QueryError;
 
 export function useCreateTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoCreateArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoCreateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoCreateArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -29,12 +34,22 @@ export function useCreateTodo(
         mutateAsync: async <T extends Prisma.TodoCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoCreateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.TodoCreateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoCreateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoCreateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -48,7 +63,8 @@ export function useCreateTodo(
 
 export function useCreateManyTodo(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoCreateManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoCreateManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoCreateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -71,12 +87,22 @@ export function useCreateManyTodo(
         mutateAsync: async <T extends Prisma.TodoCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoCreateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.TodoCreateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoCreateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoCreateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -92,8 +118,12 @@ export function useFindManyTodo<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -113,8 +143,12 @@ export function useInfiniteFindManyTodo<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>,
-    options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>(
@@ -132,8 +166,12 @@ export function useFindUniqueTodo<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -153,8 +191,12 @@ export function useFindFirstTodo<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -169,7 +211,11 @@ export function useFindFirstTodo<
 }
 
 export function useUpdateTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpdateArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpdateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpdateArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -190,12 +236,22 @@ export function useUpdateTodo(
         mutateAsync: async <T extends Prisma.TodoUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoUpdateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.TodoUpdateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoUpdateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoUpdateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -209,7 +265,8 @@ export function useUpdateTodo(
 
 export function useUpdateManyTodo(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoUpdateManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoUpdateManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoUpdateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -232,12 +289,22 @@ export function useUpdateManyTodo(
         mutateAsync: async <T extends Prisma.TodoUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoUpdateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.TodoUpdateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoUpdateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoUpdateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -248,7 +315,11 @@ export function useUpdateManyTodo(
 }
 
 export function useUpsertTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpsertArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpsertArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoUpsertArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -269,12 +340,22 @@ export function useUpsertTodo(
         mutateAsync: async <T extends Prisma.TodoUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoUpsertArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.TodoUpsertArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoUpsertArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoUpsertArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -287,7 +368,11 @@ export function useUpsertTodo(
 }
 
 export function useDeleteTodo(
-    options?: Omit<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoDeleteArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoDeleteArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Todo | undefined, DefaultError, Prisma.TodoDeleteArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -308,12 +393,22 @@ export function useDeleteTodo(
         mutateAsync: async <T extends Prisma.TodoDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoDeleteArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.TodoDeleteArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoDeleteArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Todo, Prisma.TodoGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoDeleteArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -327,7 +422,8 @@ export function useDeleteTodo(
 
 export function useDeleteManyTodo(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoDeleteManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoDeleteManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.TodoDeleteManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -350,12 +446,22 @@ export function useDeleteManyTodo(
         mutateAsync: async <T extends Prisma.TodoDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.TodoDeleteManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.TodoDeleteManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoDeleteManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.TodoDeleteManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -371,8 +477,12 @@ export function useAggregateTodo<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/aggregate`, args, options, fetch);
@@ -444,11 +554,22 @@ export function useGroupByTodo<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<
-        TArgs,
-        Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors
-    >,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors
+              >
+          >
+        | ComputedRef<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors
+              >
+          >,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/groupBy`, args, options, fetch);
@@ -464,8 +585,12 @@ export function useCountTodo<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/count`, args, options, fetch);

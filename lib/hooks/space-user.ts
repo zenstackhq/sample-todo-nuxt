@@ -2,6 +2,7 @@
 import type { Prisma, SpaceUser } from '@prisma/client';
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime/vue';
+import type { MaybeRefOrGetter, ComputedRef } from 'vue';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime/vue';
 import type { PickEnumerable, CheckSelect, QueryError } from '@zenstackhq/tanstack-query/runtime';
 import metadata from './__model_meta';
@@ -9,7 +10,8 @@ type DefaultError = QueryError;
 
 export function useCreateSpaceUser(
     options?: Omit<
-        UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserCreateArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserCreateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserCreateArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -32,12 +34,22 @@ export function useCreateSpaceUser(
         mutateAsync: async <T extends Prisma.SpaceUserCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserCreateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.SpaceUserCreateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserCreateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserCreateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -51,7 +63,10 @@ export function useCreateSpaceUser(
 
 export function useCreateManySpaceUser(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserCreateManyArgs, unknown>,
+        | MaybeRefOrGetter<
+              UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserCreateManyArgs, unknown>
+          >
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserCreateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -74,12 +89,22 @@ export function useCreateManySpaceUser(
         mutateAsync: async <T extends Prisma.SpaceUserCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserCreateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.SpaceUserCreateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserCreateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserCreateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -95,8 +120,12 @@ export function useFindManySpaceUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -116,8 +145,12 @@ export function useInfiniteFindManySpaceUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>,
-    options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>(
@@ -135,8 +168,12 @@ export function useFindUniqueSpaceUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindUniqueArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindUniqueArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindUniqueArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -156,8 +193,12 @@ export function useFindFirstSpaceUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindFirstArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindFirstArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceUserFindFirstArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -173,7 +214,8 @@ export function useFindFirstSpaceUser<
 
 export function useUpdateSpaceUser(
     options?: Omit<
-        UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserUpdateArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserUpdateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserUpdateArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -196,12 +238,22 @@ export function useUpdateSpaceUser(
         mutateAsync: async <T extends Prisma.SpaceUserUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserUpdateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.SpaceUserUpdateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserUpdateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserUpdateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -215,7 +267,10 @@ export function useUpdateSpaceUser(
 
 export function useUpdateManySpaceUser(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserUpdateManyArgs, unknown>,
+        | MaybeRefOrGetter<
+              UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserUpdateManyArgs, unknown>
+          >
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserUpdateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -238,12 +293,22 @@ export function useUpdateManySpaceUser(
         mutateAsync: async <T extends Prisma.SpaceUserUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserUpdateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.SpaceUserUpdateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserUpdateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserUpdateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -255,7 +320,8 @@ export function useUpdateManySpaceUser(
 
 export function useUpsertSpaceUser(
     options?: Omit<
-        UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserUpsertArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserUpsertArgs, unknown>>
+        | ComputedRef<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserUpsertArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -278,12 +344,22 @@ export function useUpsertSpaceUser(
         mutateAsync: async <T extends Prisma.SpaceUserUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserUpsertArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.SpaceUserUpsertArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserUpsertArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserUpsertArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -297,7 +373,8 @@ export function useUpsertSpaceUser(
 
 export function useDeleteSpaceUser(
     options?: Omit<
-        UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserDeleteArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserDeleteArgs, unknown>>
+        | ComputedRef<UseMutationOptions<SpaceUser | undefined, DefaultError, Prisma.SpaceUserDeleteArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -320,12 +397,22 @@ export function useDeleteSpaceUser(
         mutateAsync: async <T extends Prisma.SpaceUserDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserDeleteArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.SpaceUserDeleteArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserDeleteArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, SpaceUser, Prisma.SpaceUserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserDeleteArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -339,7 +426,10 @@ export function useDeleteSpaceUser(
 
 export function useDeleteManySpaceUser(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserDeleteManyArgs, unknown>,
+        | MaybeRefOrGetter<
+              UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserDeleteManyArgs, unknown>
+          >
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.SpaceUserDeleteManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -362,12 +452,22 @@ export function useDeleteManySpaceUser(
         mutateAsync: async <T extends Prisma.SpaceUserDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUserDeleteManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.SpaceUserDeleteManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserDeleteManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.SpaceUserDeleteManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -383,8 +483,12 @@ export function useAggregateSpaceUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.SpaceUserAggregateArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceUserAggregateArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceUserAggregateArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>(
@@ -462,11 +566,22 @@ export function useGroupBySpaceUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<
-        TArgs,
-        Prisma.SubsetIntersection<TArgs, Prisma.SpaceUserGroupByArgs, OrderByArg> & InputErrors
-    >,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.SpaceUserGroupByArgs, OrderByArg> & InputErrors
+              >
+          >
+        | ComputedRef<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.SpaceUserGroupByArgs, OrderByArg> & InputErrors
+              >
+          >,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>(
@@ -488,8 +603,12 @@ export function useCountSpaceUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.SpaceUserCountArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceUserCountArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceUserCountArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('SpaceUser', `${endpoint}/spaceUser/count`, args, options, fetch);

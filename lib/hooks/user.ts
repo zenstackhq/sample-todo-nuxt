@@ -2,13 +2,18 @@
 import type { Prisma, User } from '@prisma/client';
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime/vue';
+import type { MaybeRefOrGetter, ComputedRef } from 'vue';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime/vue';
 import type { PickEnumerable, CheckSelect, QueryError } from '@zenstackhq/tanstack-query/runtime';
 import metadata from './__model_meta';
 type DefaultError = QueryError;
 
 export function useCreateUser(
-    options?: Omit<UseMutationOptions<User | undefined, DefaultError, Prisma.UserCreateArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<User | undefined, DefaultError, Prisma.UserCreateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<User | undefined, DefaultError, Prisma.UserCreateArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -29,12 +34,22 @@ export function useCreateUser(
         mutateAsync: async <T extends Prisma.UserCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserCreateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.UserCreateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserCreateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserCreateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -48,7 +63,8 @@ export function useCreateUser(
 
 export function useCreateManyUser(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserCreateManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserCreateManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserCreateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -71,12 +87,22 @@ export function useCreateManyUser(
         mutateAsync: async <T extends Prisma.UserCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserCreateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.UserCreateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserCreateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserCreateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -92,8 +118,12 @@ export function useFindManyUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -113,8 +143,12 @@ export function useInfiniteFindManyUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>,
-    options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>(
@@ -132,8 +166,12 @@ export function useFindUniqueUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.UserFindUniqueArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserFindUniqueArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserFindUniqueArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -153,8 +191,12 @@ export function useFindFirstUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.UserFindFirstArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserFindFirstArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserFindFirstArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -169,7 +211,11 @@ export function useFindFirstUser<
 }
 
 export function useUpdateUser(
-    options?: Omit<UseMutationOptions<User | undefined, DefaultError, Prisma.UserUpdateArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<User | undefined, DefaultError, Prisma.UserUpdateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<User | undefined, DefaultError, Prisma.UserUpdateArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -190,12 +236,22 @@ export function useUpdateUser(
         mutateAsync: async <T extends Prisma.UserUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserUpdateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.UserUpdateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserUpdateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserUpdateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -209,7 +265,8 @@ export function useUpdateUser(
 
 export function useUpdateManyUser(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserUpdateManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserUpdateManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserUpdateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -232,12 +289,22 @@ export function useUpdateManyUser(
         mutateAsync: async <T extends Prisma.UserUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserUpdateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.UserUpdateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserUpdateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserUpdateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -248,7 +315,11 @@ export function useUpdateManyUser(
 }
 
 export function useUpsertUser(
-    options?: Omit<UseMutationOptions<User | undefined, DefaultError, Prisma.UserUpsertArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<User | undefined, DefaultError, Prisma.UserUpsertArgs, unknown>>
+        | ComputedRef<UseMutationOptions<User | undefined, DefaultError, Prisma.UserUpsertArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -269,12 +340,22 @@ export function useUpsertUser(
         mutateAsync: async <T extends Prisma.UserUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserUpsertArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.UserUpsertArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserUpsertArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserUpsertArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -287,7 +368,11 @@ export function useUpsertUser(
 }
 
 export function useDeleteUser(
-    options?: Omit<UseMutationOptions<User | undefined, DefaultError, Prisma.UserDeleteArgs, unknown>, 'mutationFn'>,
+    options?: Omit<
+        | MaybeRefOrGetter<UseMutationOptions<User | undefined, DefaultError, Prisma.UserDeleteArgs, unknown>>
+        | ComputedRef<UseMutationOptions<User | undefined, DefaultError, Prisma.UserDeleteArgs, unknown>>,
+        'mutationFn'
+    >,
     invalidateQueries: boolean = true,
     optimisticUpdate: boolean = false,
 ) {
@@ -308,12 +393,22 @@ export function useDeleteUser(
         mutateAsync: async <T extends Prisma.UserDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserDeleteArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.UserDeleteArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserDeleteArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, User, Prisma.UserGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserDeleteArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -327,7 +422,8 @@ export function useDeleteUser(
 
 export function useDeleteManyUser(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserDeleteManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserDeleteManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.UserDeleteManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -350,12 +446,22 @@ export function useDeleteManyUser(
         mutateAsync: async <T extends Prisma.UserDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserDeleteManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.UserDeleteManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserDeleteManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.UserDeleteManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -371,8 +477,12 @@ export function useAggregateUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.UserAggregateArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserAggregateArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserAggregateArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/aggregate`, args, options, fetch);
@@ -444,11 +554,22 @@ export function useGroupByUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<
-        TArgs,
-        Prisma.SubsetIntersection<TArgs, Prisma.UserGroupByArgs, OrderByArg> & InputErrors
-    >,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.UserGroupByArgs, OrderByArg> & InputErrors
+              >
+          >
+        | ComputedRef<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.UserGroupByArgs, OrderByArg> & InputErrors
+              >
+          >,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/groupBy`, args, options, fetch);
@@ -464,8 +585,12 @@ export function useCountUser<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.UserCountArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserCountArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserCountArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/count`, args, options, fetch);
