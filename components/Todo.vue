@@ -54,7 +54,7 @@ const onDelete = async () => {
                         type="checkbox"
                         name="completed"
                         class="checkbox mr-2"
-                        :checked="value.completedAt"
+                        :checked="!!value.completedAt"
                         @change="onToggleComplete"
                     />
                 </div>
@@ -73,7 +73,7 @@ const onDelete = async () => {
                 :updatedAt="value.updatedAt"
                 :completedAt="value.completedAt"
             />
-            <Avatar :user="value.owner" :size="18" />
+            <Avatar v-if="value.owner" :user="value.owner" :size="18" />
         </div>
     </div>
 </template>

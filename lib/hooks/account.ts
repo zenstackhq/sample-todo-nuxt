@@ -2,6 +2,7 @@
 import type { Prisma, Account } from '@prisma/client';
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime/vue';
+import type { MaybeRefOrGetter, ComputedRef } from 'vue';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime/vue';
 import type { PickEnumerable, CheckSelect, QueryError } from '@zenstackhq/tanstack-query/runtime';
 import metadata from './__model_meta';
@@ -9,7 +10,8 @@ type DefaultError = QueryError;
 
 export function useCreateAccount(
     options?: Omit<
-        UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountCreateArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountCreateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountCreateArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -32,12 +34,22 @@ export function useCreateAccount(
         mutateAsync: async <T extends Prisma.AccountCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.AccountCreateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.AccountCreateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountCreateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountCreateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -51,7 +63,8 @@ export function useCreateAccount(
 
 export function useCreateManyAccount(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountCreateManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountCreateManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountCreateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -74,12 +87,22 @@ export function useCreateManyAccount(
         mutateAsync: async <T extends Prisma.AccountCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.AccountCreateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.AccountCreateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountCreateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountCreateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -95,8 +118,12 @@ export function useFindManyAccount<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.AccountFindManyArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.AccountFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.AccountFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -116,8 +143,12 @@ export function useInfiniteFindManyAccount<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.AccountFindManyArgs>,
-    options?: Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.AccountFindManyArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.AccountFindManyArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>(
@@ -135,8 +166,12 @@ export function useFindUniqueAccount<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.AccountFindUniqueArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.AccountFindUniqueArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.AccountFindUniqueArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -156,8 +191,12 @@ export function useFindFirstAccount<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.AccountFindFirstArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.AccountFindFirstArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.AccountFindFirstArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -173,7 +212,8 @@ export function useFindFirstAccount<
 
 export function useUpdateAccount(
     options?: Omit<
-        UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountUpdateArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountUpdateArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountUpdateArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -196,12 +236,22 @@ export function useUpdateAccount(
         mutateAsync: async <T extends Prisma.AccountUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.AccountUpdateArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.AccountUpdateArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountUpdateArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountUpdateArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -215,7 +265,8 @@ export function useUpdateAccount(
 
 export function useUpdateManyAccount(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountUpdateManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountUpdateManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountUpdateManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -238,12 +289,22 @@ export function useUpdateManyAccount(
         mutateAsync: async <T extends Prisma.AccountUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.AccountUpdateManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.AccountUpdateManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountUpdateManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountUpdateManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -255,7 +316,8 @@ export function useUpdateManyAccount(
 
 export function useUpsertAccount(
     options?: Omit<
-        UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountUpsertArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountUpsertArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountUpsertArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -278,12 +340,22 @@ export function useUpsertAccount(
         mutateAsync: async <T extends Prisma.AccountUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.AccountUpsertArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.AccountUpsertArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountUpsertArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountUpsertArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -297,7 +369,8 @@ export function useUpsertAccount(
 
 export function useDeleteAccount(
     options?: Omit<
-        UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountDeleteArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountDeleteArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Account | undefined, DefaultError, Prisma.AccountDeleteArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -320,12 +393,22 @@ export function useDeleteAccount(
         mutateAsync: async <T extends Prisma.AccountDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.AccountDeleteArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.AccountDeleteArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountDeleteArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          CheckSelect<T, Account, Prisma.AccountGetPayload<T>> | undefined,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountDeleteArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -339,7 +422,8 @@ export function useDeleteAccount(
 
 export function useDeleteManyAccount(
     options?: Omit<
-        UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountDeleteManyArgs, unknown>,
+        | MaybeRefOrGetter<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountDeleteManyArgs, unknown>>
+        | ComputedRef<UseMutationOptions<Prisma.BatchPayload, DefaultError, Prisma.AccountDeleteManyArgs, unknown>>,
         'mutationFn'
     >,
     invalidateQueries: boolean = true,
@@ -362,12 +446,22 @@ export function useDeleteManyAccount(
         mutateAsync: async <T extends Prisma.AccountDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.AccountDeleteManyArgs>,
             options?: Omit<
-                UseMutationOptions<
-                    Prisma.BatchPayload,
-                    DefaultError,
-                    Prisma.SelectSubset<T, Prisma.AccountDeleteManyArgs>,
-                    unknown
-                >,
+                | MaybeRefOrGetter<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountDeleteManyArgs>,
+                          unknown
+                      >
+                  >
+                | ComputedRef<
+                      UseMutationOptions<
+                          Prisma.BatchPayload,
+                          DefaultError,
+                          Prisma.SelectSubset<T, Prisma.AccountDeleteManyArgs>,
+                          unknown
+                      >
+                  >,
                 'mutationFn'
             >,
         ) => {
@@ -383,8 +477,12 @@ export function useAggregateAccount<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<TArgs, Prisma.AccountAggregateArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.AccountAggregateArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.AccountAggregateArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Account', `${endpoint}/account/aggregate`, args, options, fetch);
@@ -456,11 +554,22 @@ export function useGroupByAccount<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args: Prisma.SelectSubset<
-        TArgs,
-        Prisma.SubsetIntersection<TArgs, Prisma.AccountGroupByArgs, OrderByArg> & InputErrors
-    >,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args:
+        | MaybeRefOrGetter<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.AccountGroupByArgs, OrderByArg> & InputErrors
+              >
+          >
+        | ComputedRef<
+              Prisma.SelectSubset<
+                  TArgs,
+                  Prisma.SubsetIntersection<TArgs, Prisma.AccountGroupByArgs, OrderByArg> & InputErrors
+              >
+          >,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Account', `${endpoint}/account/groupBy`, args, options, fetch);
@@ -476,8 +585,12 @@ export function useCountAccount<
     TData = TQueryFnData,
     TError = DefaultError,
 >(
-    args?: Prisma.SelectSubset<TArgs, Prisma.AccountCountArgs>,
-    options?: Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>,
+    args?:
+        | MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.AccountCountArgs>>
+        | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.AccountCountArgs>>,
+    options?:
+        | MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>
+        | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Account', `${endpoint}/account/count`, args, options, fetch);
