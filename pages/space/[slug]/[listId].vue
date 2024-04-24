@@ -11,8 +11,6 @@ const title = ref('');
 
 const route = useRoute();
 
-const { data: session } = useAuth();
-
 const { data: space } = useFindUniqueSpace({
     where: { slug: route.params.slug as string },
 });
@@ -27,7 +25,7 @@ const { data: todos, refetch } = useFindManyTodo({
     orderBy: { createdAt: 'desc' },
 });
 
-const create = useCreateTodo(undefined, true, true);
+const create = useCreateTodo({ optimisticUpdate: true });
 
 const onCreateTodo = async () => {
     if (!title.value) {
@@ -35,7 +33,6 @@ const onCreateTodo = async () => {
     }
     await create.mutateAsync({
         data: {
-            owner: { connect: { id: session.value!.user.id } },
             list: { connect: { id: list.value!.id } },
             title: title.value,
         },

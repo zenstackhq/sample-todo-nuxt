@@ -9,8 +9,6 @@ const emit = defineEmits(['created']);
 const title = ref('');
 const _private = ref(false);
 
-const { data: session } = useAuth();
-
 const createList = useCreateList();
 
 const onCreate = async () => {
@@ -20,7 +18,6 @@ const onCreate = async () => {
                 space: { connect: { id: props.space.id } },
                 title: title.value,
                 private: _private.value,
-                owner: { connect: { id: session.value.user.id } },
             },
         });
     } catch (err: any) {

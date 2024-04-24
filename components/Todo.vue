@@ -11,8 +11,8 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(['change']);
 
-const update = useUpdateTodo(undefined, true, true);
-const del = useDeleteTodo(undefined, true, true);
+const update = useUpdateTodo({ optimisticUpdate: true });
+const del = useDeleteTodo({ optimisticUpdate: true });
 
 const onToggleComplete = async () => {
     await update.mutateAsync({

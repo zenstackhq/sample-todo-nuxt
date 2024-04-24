@@ -4,5 +4,5 @@ export * from './user';
 export * from './list';
 export * from './todo';
 export * from './account';
-export { getQueryKey } from '@zenstackhq/tanstack-query/runtime';
-export { VueQueryContextKey, provideHooksContext } from '@zenstackhq/tanstack-query/runtime/vue';
+export { getQueryKey } from '@zenstackhq/tanstack-query/runtime-v5';
+export { VueQueryContextKey, provideHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/vue';
