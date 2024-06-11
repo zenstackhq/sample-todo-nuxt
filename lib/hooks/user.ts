@@ -1,10 +1,11 @@
 /* eslint-disable */
-import type { Prisma, User } from ".zenstack/models";
+import type { Prisma, User } from "@zenstackhq/runtime/models";
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/vue';
 import type { MaybeRefOrGetter, ComputedRef } from 'vue';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime-v5/vue';
 import type { PickEnumerable, CheckSelect, QueryError, ExtraQueryOptions, ExtraMutationOptions } from '@zenstackhq/tanstack-query/runtime-v5';
+import type { PolicyCrudKind } from '@zenstackhq/runtime'
 import metadata from './__model_meta';
 type DefaultError = QueryError;
 
@@ -53,7 +54,7 @@ export function useFindManyUser<TArgs extends Prisma.UserFindManyArgs, TQueryFnD
     return useModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/findMany`, args, options, fetch);
 }
 
-export function useInfiniteFindManyUser<TArgs extends Prisma.UserFindManyArgs, TQueryFnData = Array<Prisma.UserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>>, options?: MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>) {
+export function useInfiniteFindManyUser<TArgs extends Prisma.UserFindManyArgs, TQueryFnData = Array<Prisma.UserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>>, options?: MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>> | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>>) {
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/findMany`, args, options, fetch);
 }
@@ -231,4 +232,9 @@ export function useGroupByUser<TArgs extends Prisma.UserGroupByArgs, HasSelectOr
 export function useCountUser<TArgs extends Prisma.UserCountArgs, TQueryFnData = TArgs extends { select: any; } ? TArgs['select'] extends true ? number : Prisma.GetScalarType<TArgs['select'], Prisma.UserCountAggregateOutputType> : number, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.UserCountArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.UserCountArgs>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/count`, args, options, fetch);
+}
+
+export function useCheckUser<TError = DefaultError>(args: { operation: PolicyCrudKind; where?: { id?: string; email?: string; password?: string; name?: string; image?: string }; }, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'>> & ExtraQueryOptions)) {
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery<boolean, boolean, TError>('User', `${endpoint}/user/check`, args, options, fetch);
 }

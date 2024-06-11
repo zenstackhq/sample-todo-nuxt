@@ -1,10 +1,11 @@
 /* eslint-disable */
-import type { Prisma, Space } from ".zenstack/models";
+import type { Prisma, Space } from "@zenstackhq/runtime/models";
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/vue';
 import type { MaybeRefOrGetter, ComputedRef } from 'vue';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime-v5/vue';
 import type { PickEnumerable, CheckSelect, QueryError, ExtraQueryOptions, ExtraMutationOptions } from '@zenstackhq/tanstack-query/runtime-v5';
+import type { PolicyCrudKind } from '@zenstackhq/runtime'
 import metadata from './__model_meta';
 type DefaultError = QueryError;
 
@@ -53,7 +54,7 @@ export function useFindManySpace<TArgs extends Prisma.SpaceFindManyArgs, TQueryF
     return useModelQuery<TQueryFnData, TData, TError>('Space', `${endpoint}/space/findMany`, args, options, fetch);
 }
 
-export function useInfiniteFindManySpace<TArgs extends Prisma.SpaceFindManyArgs, TQueryFnData = Array<Prisma.SpaceGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceFindManyArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceFindManyArgs>>, options?: MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>>) {
+export function useInfiniteFindManySpace<TArgs extends Prisma.SpaceFindManyArgs, TQueryFnData = Array<Prisma.SpaceGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceFindManyArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceFindManyArgs>>, options?: MaybeRefOrGetter<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>> | ComputedRef<Omit<UseInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>>) {
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>('Space', `${endpoint}/space/findMany`, args, options, fetch);
 }
@@ -231,4 +232,9 @@ export function useGroupBySpace<TArgs extends Prisma.SpaceGroupByArgs, HasSelect
 export function useCountSpace<TArgs extends Prisma.SpaceCountArgs, TQueryFnData = TArgs extends { select: any; } ? TArgs['select'] extends true ? number : Prisma.GetScalarType<TArgs['select'], Prisma.SpaceCountAggregateOutputType> : number, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SpaceCountArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SpaceCountArgs>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Space', `${endpoint}/space/count`, args, options, fetch);
+}
+
+export function useCheckSpace<TError = DefaultError>(args: { operation: PolicyCrudKind; where?: { id?: string; name?: string; slug?: string }; }, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'>> & ExtraQueryOptions)) {
+    const { endpoint, fetch } = getHooksContext();
+    return useModelQuery<boolean, boolean, TError>('Space', `${endpoint}/space/check`, args, options, fetch);
 }
