@@ -2,7 +2,7 @@
 import type { Prisma, Todo } from "@zenstackhq/runtime/models";
 import type { UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions, InfiniteData } from '@tanstack/vue-query';
 import { getHooksContext } from '@zenstackhq/tanstack-query/runtime-v5/vue';
-import type { MaybeRefOrGetter, ComputedRef } from 'vue';
+import type { MaybeRefOrGetter, ComputedRef, UnwrapRef } from 'vue';
 import { useModelQuery, useInfiniteModelQuery, useModelMutation } from '@zenstackhq/tanstack-query/runtime-v5/vue';
 import type { PickEnumerable, CheckSelect, QueryError, ExtraQueryOptions, ExtraMutationOptions } from '@zenstackhq/tanstack-query/runtime-v5';
 import type { PolicyCrudKind } from '@zenstackhq/runtime'
@@ -49,7 +49,7 @@ export function useCreateManyTodo(options?: Omit<(MaybeRefOrGetter<UseMutationOp
     return mutation;
 }
 
-export function useFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, TQueryFnData = Array<Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }>, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
+export function useFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, TQueryFnData = Array<Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }>, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindManyArgs>>, options?: (MaybeRefOrGetter<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> | ComputedRef<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findMany`, args, options, fetch);
 }
@@ -59,12 +59,12 @@ export function useInfiniteFindManyTodo<TArgs extends Prisma.TodoFindManyArgs, T
     return useInfiniteModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findMany`, args, options, fetch);
 }
 
-export function useFindUniqueTodo<TArgs extends Prisma.TodoFindUniqueArgs, TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }, TData = TQueryFnData, TError = DefaultError>(args: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
+export function useFindUniqueTodo<TArgs extends Prisma.TodoFindUniqueArgs, TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }, TData = TQueryFnData, TError = DefaultError>(args: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindUniqueArgs>>, options?: (MaybeRefOrGetter<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> | ComputedRef<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findUnique`, args, options, fetch);
 }
 
-export function useFindFirstTodo<TArgs extends Prisma.TodoFindFirstArgs, TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
+export function useFindFirstTodo<TArgs extends Prisma.TodoFindFirstArgs, TQueryFnData = Prisma.TodoGetPayload<TArgs> & { $optimistic?: boolean }, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoFindFirstArgs>>, options?: (MaybeRefOrGetter<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> | ComputedRef<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/findFirst`, args, options, fetch);
 }
@@ -169,7 +169,7 @@ export function useDeleteManyTodo(options?: Omit<(MaybeRefOrGetter<UseMutationOp
     return mutation;
 }
 
-export function useAggregateTodo<TArgs extends Prisma.TodoAggregateArgs, TQueryFnData = Prisma.GetTodoAggregateType<TArgs>, TData = TQueryFnData, TError = DefaultError>(args: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
+export function useAggregateTodo<TArgs extends Prisma.TodoAggregateArgs, TQueryFnData = Prisma.GetTodoAggregateType<TArgs>, TData = TQueryFnData, TError = DefaultError>(args: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoAggregateArgs>>, options?: (MaybeRefOrGetter<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> | ComputedRef<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/aggregate`, args, options, fetch);
 }
@@ -224,17 +224,17 @@ export function useGroupByTodo<TArgs extends Prisma.TodoGroupByArgs, HasSelectOr
             : Prisma.GetScalarType<TArgs[P], Prisma.TodoGroupByOutputType[P]>
             : Prisma.GetScalarType<TArgs[P], Prisma.TodoGroupByOutputType[P]>
         }
-    > : InputErrors, TData = TQueryFnData, TError = DefaultError>(args: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
+    > : InputErrors, TData = TQueryFnData, TError = DefaultError>(args: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.SubsetIntersection<TArgs, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors>>, options?: (MaybeRefOrGetter<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> | ComputedRef<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/groupBy`, args, options, fetch);
 }
 
-export function useCountTodo<TArgs extends Prisma.TodoCountArgs, TQueryFnData = TArgs extends { select: any; } ? TArgs['select'] extends true ? number : Prisma.GetScalarType<TArgs['select'], Prisma.TodoCountAggregateOutputType> : number, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>>, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
+export function useCountTodo<TArgs extends Prisma.TodoCountArgs, TQueryFnData = TArgs extends { select: any; } ? TArgs['select'] extends true ? number : Prisma.GetScalarType<TArgs['select'], Prisma.TodoCountAggregateOutputType> : number, TData = TQueryFnData, TError = DefaultError>(args?: MaybeRefOrGetter<Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>> | ComputedRef<Prisma.SelectSubset<TArgs, Prisma.TodoCountArgs>>, options?: (MaybeRefOrGetter<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> | ComputedRef<Omit<UnwrapRef<UseQueryOptions<TQueryFnData, TError, TData>>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('Todo', `${endpoint}/todo/count`, args, options, fetch);
 }
 
-export function useCheckTodo<TError = DefaultError>(args: { operation: PolicyCrudKind; where?: { id?: string; ownerId?: string; listId?: string; title?: string }; }, options?: (MaybeRefOrGetter<Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'>> | ComputedRef<Omit<UseQueryOptions<boolean, TError, boolean>, 'queryKey'>> & ExtraQueryOptions)) {
+export function useCheckTodo<TError = DefaultError>(args: { operation: PolicyCrudKind; where?: { id?: string; ownerId?: string; listId?: string; title?: string }; }, options?: (MaybeRefOrGetter<Omit<UnwrapRef<UseQueryOptions<boolean, TError, boolean>>, 'queryKey'>> | ComputedRef<Omit<UnwrapRef<UseQueryOptions<boolean, TError, boolean>>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<boolean, boolean, TError>('Todo', `${endpoint}/todo/check`, args, options, fetch);
 }
