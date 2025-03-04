@@ -25,7 +25,7 @@
         "tailwindcss": "^3.3.3",
         "vue": "^3.4.21",
         "vue-router": "^4.3.0",
-        "zenstack": "^2.12.0"
+        "zenstack": "^2.12.1"
     },
     "dependencies": {
         "@heroicons/vue": "^2.0.18",
@@ -33,9 +33,9 @@
         "@prisma/client": "^6.1.0",
         "@sidebase/nuxt-auth": "^0.7.2",
         "@tanstack/vue-query": "^5.32.0",
-        "@zenstackhq/runtime": "^2.12.0",
-        "@zenstackhq/server": "^2.12.0",
-        "@zenstackhq/tanstack-query": "^2.12.0",
+        "@zenstackhq/runtime": "^2.12.1",
+        "@zenstackhq/server": "^2.12.1",
+        "@zenstackhq/tanstack-query": "^2.12.1",
         "bcryptjs": "^2.4.3",
         "moment": "^2.29.4",
         "nanoid": "^5.0.1",
